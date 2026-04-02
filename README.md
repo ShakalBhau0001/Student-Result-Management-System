@@ -30,9 +30,11 @@ student-result-backend/
 ├── public/
 │   └── index.html
 │
+├── .env
 ├── LICENCE
 ├── server.js              # Entry point
 ├── package.json
+├── yarn.lock
 └── README.md
 ```
 
