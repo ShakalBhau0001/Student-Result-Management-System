@@ -1,1 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduResult Pro</title>
+  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Clash+Display:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="aurora">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+  <nav>
+    <div class="logo-mark">
+      <div class="logo-icon">&#127891;</div>
+      <div class="logo-text">Edu<span>Result</span> Pro</div>
+    </div>
+    <div class="nav-pills">
+      <button class="nav-pill active" onclick="showPage('home',this)"><span>&#127968;</span><span>Home</span></button>
+      <button class="nav-pill" onclick="showPage('student',this)"><span>&#128202;</span><span>Result</span></button>
+      <button class="nav-pill" onclick="showPage('admin',this)"><span>&#9881;&#65039;</span><span>Admin</span></button>
+    </div>
+  </nav>
+  <div class="wrap">
+    <!-- HOME -->
+    <div class="page active" id="home">
+      <div class="container">
+        <div class="home-hero">
+          <div class="hero-eyebrow">Student Result Management System</div>
+          <h1>Academic Results,<br><span class="shine">Beautifully Managed.</span></h1>
+          <p>Add students, manage subjects, enter marks and auto-calculate grades. Powered by Node.js + MongoDB.</p>
+        </div>
+        <div class="stat-strip">
+          <div class="glass stat-card">
+            <div class="stat-emoji">&#127891;</div>
+            <div class="stat-num" id="s1">&#8212;</div>
+            <div class="stat-label">Total Students</div>
+          </div>
+          <div class="glass stat-card">
+            <div class="stat-emoji">&#128203;</div>
+            <div class="stat-num" id="s2">&#8212;</div>
+            <div class="stat-label">Results Entered</div>
+          </div>
+          <div class="glass stat-card">
+            <div class="stat-emoji">&#9989;</div>
+            <div class="stat-num" id="s3">&#8212;</div>
+            <div class="stat-label">Pass Rate</div>
+          </div>
+          <div class="glass stat-card">
+            <div class="stat-emoji">&#128200;</div>
+            <div class="stat-num" id="s4">&#8212;</div>
+            <div class="stat-label">Avg Percentage</div>
+          </div>
+        </div>
+        <div class="cta-grid">
+          <div class="glass cta-card" onclick="showPage('admin',document.querySelectorAll('.nav-pill')[2])">
+            <div class="cta-icon-wrap">&#9881;&#65039;</div>
+            <div class="cta-title">Admin Dashboard</div>
+            <div class="cta-desc">Login to add students, manage subjects, enter marks.</div>
+            <div class="cta-arrow">&#8599;</div>
+          </div>
+          <div class="glass cta-card" onclick="showPage('student',document.querySelectorAll('.nav-pill')[1])">
+            <div class="cta-icon-wrap">&#128269;</div>
+            <div class="cta-title">Check My Result</div>
+            <div class="cta-desc">Enter Roll Number to view marks, percentage and grade.</div>
+            <div class="cta-arrow">&#8599;</div>
+          </div>
+          <div class="glass cta-card" onclick="showPage('admin',document.querySelectorAll('.nav-pill')[2])">
+            <div class="cta-icon-wrap">&#128218;</div>
+            <div class="cta-title">Manage Subjects</div>
+            <div class="cta-desc">Add or remove subjects dynamically.</div>
+            <div class="cta-arrow">&#8599;</div>
+          </div>
+          <div class="glass cta-card" onclick="showPage('admin',document.querySelectorAll('.nav-pill')[2])">
+            <div class="cta-icon-wrap">&#128202;</div>
+            <div class="cta-title">All Results</div>
+            <div class="cta-desc">View, edit and manage all student results.</div>
+            <div class="cta-arrow">&#8599;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- STUDENT -->
+    <div class="page" id="student">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title">Check Your <span class="hl">Result</span></div>
+        </div>
+        <div class="glass form-section" style="max-width:560px;">
+          <div class="form-title"><span class="dot"></span>Enter Your Roll Number</div>
+          <div class="form-grid-2">
+            <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" type="text"
+                id="cRoll" placeholder="e.g. 101" onkeydown="if(event.key==='Enter')checkResult()" /></div>
+            <div class="form-group" style="justify-content:flex-end;"><label class="form-label"
+                style="opacity:0">.</label><button class="btn btn-primary" id="checkBtn" onclick="checkResult()"
+                style="width:100%">Search Result</button></div>
+          </div>
+        </div>
+        <div id="resultArea"></div>
+      </div>
+    </div>
+    <!-- ADMIN -->
+    <div class="page" id="admin">
+      <div id="adminLock">
+        <div class="login-outer">
+          <div class="glass login-box">
+            <div class="login-icon">&#128274;</div>
+            <h2>Admin Portal</h2>
+            <p>Sign in to access the management dashboard</p>
+            <div class="form-group login-field"><label class="form-label">Username</label><input class="form-input"
+                type="text" id="aUser" placeholder="admin" /></div>
+            <div class="form-group login-field"><label class="form-label">Password</label><input class="form-input"
+                type="password" id="aPass" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;"
+                onkeydown="if(event.key==='Enter')doLogin()" /></div>
+            <button class="btn btn-primary" id="loginBtn" style="width:100%;margin-top:.5rem;padding:13px;"
+              onclick="doLogin()">Sign In</button>
+            <div class="hint-text">Default: username <code>admin</code> password <code>admin123</code></div>
+          </div>
+        </div>
+      </div>
+      <div id="adminPanel" style="display:none;">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-title">Admin <span class="hl">Dashboard</span></div><button class="btn btn-ghost btn-sm"
+              onclick="doLogout()">Logout</button>
+          </div>
+          <div id="apiBar" class="api-bar"><span class="api-dot"></span><span id="apiMsg">Connecting...</span></div>
+          <div class="tab-bar">
+            <button class="tab-btn active" id="tb1" onclick="switchTab('addStu')">Add Student</button>
+            <button class="tab-btn" id="tb2" onclick="switchTab('addMrk')">Enter Marks</button>
+            <button class="tab-btn" id="tb3" onclick="switchTab('manSub')">Subjects</button>
+            <button class="tab-btn" id="tb4" onclick="switchTab('allStu')">Students</button>
+            <button class="tab-btn" id="tb5" onclick="switchTab('allRes')">Results</button>
+          </div>
+          <!-- ADD STUDENT -->
+          <div id="tabAddStu">
+            <div class="glass form-section">
+              <div class="form-title"><span class="dot"></span>New Student Registration</div>
+              <div class="form-grid-2">
+                <div class="form-group"><label class="form-label">Roll Number *</label><input class="form-input"
+                    type="text" id="nRoll" placeholder="101" /></div>
+                <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input"
+                    type="text" id="nName" placeholder="Rahul Patil" /></div>
+                <div class="form-group"><label class="form-label">Course *</label><input class="form-input" type="text"
+                    id="nClass" placeholder="BSc IT" /></div>
+                <div class="form-group"><label class="form-label">Semester</label><select class="form-select" id="nSem">
+                    <option>Semester 1</option>
+                    <option>Semester 2</option>
+                    <option selected>Semester 3</option>
+                    <option>Semester 4</option>
+                    <option>Semester 5</option>
+                    <option>Semester 6</option>
+                  </select></div>
+                <div class="form-group"><label class="form-label">Gender</label><select class="form-select" id="nGen">
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select></div>
+                <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email"
+                    id="nEmail" placeholder="student@email.com" /></div>
+              </div>
+              <button class="btn btn-primary" id="addStuBtn" onclick="addStudent()">Add Student</button>
+            </div>
+          </div>
+          <!-- ENTER MARKS -->
+          <div id="tabAddMrk" style="display:none;">
+            <div class="glass form-section">
+              <div class="form-title"><span class="dot"></span>Enter Subject Marks</div>
+              <div class="form-grid-2" style="max-width:420px;margin-bottom:1.2rem;">
+                <div class="form-group"><label class="form-label">Roll Number *</label><input class="form-input"
+                    type="text" id="mRoll" placeholder="101" /></div>
+                <div class="form-group"><label class="form-label">Exam Year</label><input class="form-input" type="text"
+                    id="mYear" value="2025" /></div>
+              </div>
+              <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Marks out of max for each subject:</p>
+              <div class="marks-input-grid" id="marksInputGrid">
+                <div style="color:var(--muted);font-size:.9rem;padding:.5rem;">Loading subjects...</div>
+              </div>
+              <button class="btn btn-primary" id="saveMrkBtn" onclick="saveMarks()">Save Marks</button>
+            </div>
+          </div>
+          <!-- MANAGE SUBJECTS -->
+          <div id="tabManSub" style="display:none;">
+            <div class="glass form-section" style="max-width:500px;">
+              <div class="form-title"><span class="dot"></span>Add New Subject</div>
+              <div class="form-grid-2">
+                <div class="form-group"><label class="form-label">Subject Name *</label><input class="form-input"
+                    type="text" id="subName" placeholder="e.g. English" /></div>
+                <div class="form-group"><label class="form-label">Max Marks</label><input class="form-input"
+                    type="number" id="subMax" value="100" min="1" max="200" /></div>
+              </div>
+              <button class="btn btn-primary" id="addSubBtn" onclick="addSubject()">Add Subject</button>
+            </div>
+            <div class="section-header" style="margin-top:1rem;">
+              <div style="font-weight:700;font-size:1rem;">Current Subjects</div>
+            </div>
+            <div class="glass table-card">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Subject Name</th>
+                      <th>Max Marks</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="subBody"></tbody>
+                </table>
+                <div class="empty" id="emptySub"><span class="empty-icon">&#128218;</span>
+                  <p>No subjects added yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ALL STUDENTS -->
+          <div id="tabAllStu" style="display:none;">
+            <div class="section-header">
+              <div style="font-weight:700;font-size:1rem;">All Students</div>
+              <div class="search-wrap"><input type="text" placeholder="Search..." oninput="loadStudents(this.value)" />
+              </div>
+            </div>
+            <div class="glass table-card">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Roll No</th>
+                      <th>Name</th>
+                      <th>Course</th>
+                      <th>Semester</th>
+                      <th>Gender</th>
+                      <th>Email</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stuBody"></tbody>
+                </table>
+                <div class="empty" id="emptyStu2"><span class="empty-icon">&#128101;</span>
+                  <p>No students added yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ALL RESULTS -->
+          <div id="tabAllRes" style="display:none;">
+            <div class="section-header">
+              <div style="font-weight:700;font-size:1rem;">All Results</div>
+              <div class="search-wrap"><input type="text" placeholder="Search Roll No..."
+                  oninput="loadResults(this.value)" /></div>
+            </div>
+            <div class="glass table-card">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Roll No</th>
+                      <th>Name</th>
+                      <th>Total</th>
+                      <th>%</th>
+                      <th>Grade</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="resBody"></tbody>
+                </table>
+                <div class="empty" id="emptyRes"><span class="empty-icon">&#128202;</span>
+                  <p>No results yet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- EDIT MODAL -->
+  <div class="modal-overlay" id="editModal" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-title"><span>Edit Result &mdash; Roll No: <span id="editRollLabel"></span></span><button
+          class="modal-close" onclick="closeEditModal()">&#x2715;</button></div>
+      <div class="form-group" style="margin-bottom:1.2rem;"><label class="form-label">Exam Year</label><input
+          class="form-input" type="text" id="editYear" style="max-width:200px;" /></div>
+      <p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Update marks:</p>
+      <div class="marks-input-grid" id="editMarksGrid"></div>
+      <div style="display:flex;gap:10px;margin-top:1rem;"><button class="btn btn-primary" id="saveEditBtn"
+          onclick="saveEdit()">Save Changes</button><button class="btn btn-ghost"
+          onclick="closeEditModal()">Cancel</button></div>
+    </div>
+  </div>
+  <!-- STUDENT EDIT MODAL -->
+  <div class="modal-overlay" id="stuEditModal" style="display:none;">
+    <div class="modal-box">
+      <div class="modal-title"><span>Edit Student</span><button class="modal-close"
+          onclick="closeStuEditModal()">&#x2715;</button></div>
+      <div class="form-grid-2" style="margin-bottom:1rem;">
+        <div class="form-group"><label class="form-label">Roll Number</label><input class="form-input" type="text"
+            id="seRoll" disabled style="opacity:.5;" /></div>
+        <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" type="text"
+            id="seName" placeholder="Rahul Patil" /></div>
+        <div class="form-group"><label class="form-label">Course *</label><input class="form-input" type="text"
+            id="seCourse" placeholder="BSc IT" /></div>
+        <div class="form-group"><label class="form-label">Semester</label>
+          <select class="form-select" id="seSem">
+            <option>Semester 1</option>
+            <option>Semester 2</option>
+            <option>Semester 3</option>
+            <option>Semester 4</option>
+            <option>Semester 5</option>
+            <option>Semester 6</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Gender</label>
+          <select class="form-select" id="seGen">
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email"
+            id="seEmail" placeholder="student@email.com" /></div>
+      </div>
+      <div style="display:flex;gap:10px;"><button class="btn btn-primary" id="saveStuEditBtn"
+          onclick="saveStuEdit()">Save Changes</button><button class="btn btn-ghost"
+          onclick="closeStuEditModal()">Cancel</button></div>
+    </div>
+  </div>
+  <div class="toast" id="toast" style="display:none;">
+    <div class="toast-dot success" id="toastDot"></div><span class="toast-text" id="toastText">Done!</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
