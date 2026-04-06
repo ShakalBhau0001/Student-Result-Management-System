@@ -64,34 +64,34 @@ The system is built around three core MongoDB collections:
 Student-Result-Management-System/
 │
 ├── config/
-│   └── db.js               # MongoDB connection
+│   └── db.js                 # MongoDB connection
 │
 ├── middleware/
-│   └── auth.js             # Authentication middleware
+│   └── auth.js               # Authentication middleware
 │
 ├── models/
-│   ├── Admin.js            # Admin schema
-│   ├── Student.js          # Student schema
-│   ├── Subject.js          # Subject schema
-│   └── Result.js           # Result schema
+│   ├── Admin.js              # Admin schema
+│   ├── Student.js            # Student schema
+│   ├── Subject.js            # Subject schema
+│   └── Result.js             # Result schema
 │
 ├── routes/
-│   ├── auth.js             # Authentication routes
-│   ├── students.js         # Student CRUD routes
-│   ├── subjects.js         # Subject CRUD routes
-│   └── results.js          # Result CRUD routes
+│   ├── auth.js               # Authentication routes
+│   ├── students.js           # Student CRUD routes
+│   ├── subjects.js           # Subject CRUD routes
+│   └── results.js            # Result CRUD routes
 │
 ├── public/
-│   ├── index.html          # Frontend (served by Express)
-│   ├── style.css           # Frontend styles
-│   └── app.js              # Frontend logic
+│   ├── index.html            # Frontend (served by Express)
+│   ├── style.css             # Frontend styles
+│   └── app.js                # Frontend logic
 │
-├── .env
+├── .env                      # Environment variables
 ├── LICENCE
-├── server.js              # Entry point
-├── package.json           # Dependencies
-├── yarn.lock              # Auto-generated lock file
-└── README.md              # Project documentation
+├── server.js                 # Entry point
+├── package.json              # Dependencies
+├── yarn.lock                 # Auto-generated lock file
+└── README.md                 # Project documentation
 ```
 
 ---
@@ -283,6 +283,55 @@ yarn dev
 
 ---
 
+## 🗄️ Database Schema (MongoDB)
+
+
+#### Admin Collection
+
+```json
+{
+"_id": ObjectId,
+"username": "admin",
+"password": "$2b$10$..." // bcrypt hashed
+}
+```
+
+#### Student Collection
+
+```json
+{
+"_id": ObjectId,
+"rollNo": "101",
+"name": "Rahul Patil",
+"course": "BSc IT",
+"semester": "Semester 3",
+"gender": "Male",
+"email": "rahul@email.com"
+}
+```
+
+#### Result Collection
+
+```json
+{
+"_id": ObjectId,
+"rollNo": "101",
+"year": "2025",
+"subs": [
+{ "sub": "Maths", "val": 85 },
+{ "sub": "Physics", "val": 78 }
+],
+"total": 423,
+"percentage": 84.6,
+"grade": "A+",
+"result": "PASS"
+}
+```
+
+> Designed for **flexibility** and **scalability**.
+
+---
+
 ## 🖼️ Screenshots
 
 ### 1. Admin Login
@@ -316,8 +365,29 @@ yarn dev
 
 ## ⚠️ Disclaimer
 
-This project is for educational purposes only. It is not intended for production use without further enhancements, security audits, and optimizations.
+This project is for **educational purposes** only. It is not intended for production use without further enhancements, security audits, and optimizations.
 Always follow best practices when deploying applications in real-world scenarios.
+It is **not production-ready** and lacks advanced security features like rate limiting, HTTPS, and XSS protection.
+
+---
+
+## 🛣️ Roadmap / Future Improvements
+- Student login portal (view own results only)
+- PDF result download
+- Bulk student upload via Excel
+- Email notifications for result publication
+- Multi-semester result aggregation
+- Role-based access (admin, teacher, student)
+- Advanced dashboard with chart
+
+---
+
+## 🙏 Acknowledgments
+
+- Node.js & Express.js community
+- MongoDB & Mongoose
+- JWT for authentication
+- All contributors and testers
 
 ---
 
@@ -333,3 +403,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
  
 > GitHub: **[ShakalBhau0001](https://github.com/ShakalBhau0001) & [Rajlaxmi-1307](https://github.com/Rajlaxmi-1307)**
 
+---
