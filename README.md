@@ -63,6 +63,7 @@ The system is built around three core MongoDB collections:
 ```bash
 Student-Result-Management-System/
 │
+├── assets/                   # Screenshots
 ├── config/
 │   └── db.js                 # MongoDB connection
 │
